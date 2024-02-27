@@ -100,8 +100,12 @@ public class IntervalTimerApplication extends Application {
 		try {
 			Parent root = loader.load();
 			root.setStyle("-base: " + Userdata.readProperty("ui-color", Values.DEFAULT_UI_COLOR));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
+			if (stage.getScene() == null) {
+				stage.setScene(new Scene(root));
+			}
+			else {
+				stage.getScene().setRoot(root);
+			}
 		} catch (IOException e) {
 			System.out.println("Error loading FXML file");
 			e.printStackTrace();
