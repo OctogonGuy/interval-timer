@@ -19,6 +19,7 @@ import javafx.util.Callback;
  * @author Alex Gill
  *
  */
+@SuppressWarnings("restriction")
 public class AlertComboBox extends ComboBox<Alert> {
 	
 	/**
@@ -92,13 +93,9 @@ public class AlertComboBox extends ComboBox<Alert> {
 					(obs, oldVal, newVal) -> {
 				comboBox.hide();
 			});
-			getListView().setOnMouseClicked(event -> {
+			comboBox.setOnMouseClicked(event -> {
 				comboBox.hide();
 			});
-		}
-		@Override
-		public boolean isHideOnClickEnabled() {
-			return false;
 		}
 	}
 }
