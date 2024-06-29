@@ -99,7 +99,7 @@ export const getSharedAlert = async() => {
   if (sharedAlertStr)
     return JSON.parse(sharedAlertStr);
   else
-    return false;
+    return true;
 }
 
 export const storeColor = async(color: string) => {

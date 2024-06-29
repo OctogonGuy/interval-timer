@@ -22,7 +22,7 @@ import {
   storeSharedAlert,
   getAlert,
   getRepeat,
-  getSharedAlert, getIntervalTimer, storeIntervalTimer, getColor, getModality,
+  getSharedAlert, getIntervalTimer, storeIntervalTimer, getColor, getModality, storeColor,
 } from "../utils/AppStorage";
 import Interval from "../utils/Interval";
 import Styles from "../utils/Styles";
@@ -33,10 +33,15 @@ import PresetEditorBox from "../components/PresetEditorBox";
 import Preset from "../constants/Preset";
 import CheckBox from "../components/CheckBox";
 import IntervalTimer from "../utils/IntervalTimer";
+import ColorPicker from "react-native-wheel-color-picker";
 
 export default ({ route, navigation }: MenuProps) => {
+  // --- Modal ---
   const [intervalModalVisible, setIntervalModalVisible] = useState(false);
   const [presetModalVisible, setPresetModalVisible] = useState(false);
+  const [showColorPickerModal, setShowColorPickerModal] = useState(false);
+  const [tempColor, setTempColor] = useState("");
+  // --- Interval info ---
   const [intervals, setIntervals] = useState(new Array<Interval>());
   const [modalInterval, setModalInterval] = useState(new Interval());
   const [modalIntervalIndex, setModalIntervalIndex] = useState(0);
@@ -114,6 +119,38 @@ export default ({ route, navigation }: MenuProps) => {
   return (
     <View style={Styles.container}>
       <Modal
+        visible={showColorPickerModal}
+        transparent={true}
+        animationType="slide"
+      >
+        <View style={Styles.colorPickerContainer}>
+          <View style={Styles.colorPicker}>
+            <ColorPicker
+              color={color}
+              onColorChangeComplete={setTempColor}
+              swatches={false}
+            />
+          </View>
+          <View style={Styles.controlGroup}>
+            <Button
+              title="Ok"
+              color={color}
+              onPress={() => {
+                setColor(tempColor);
+                storeColor(tempColor);
+                setShowColorPickerModal(false);
+              }}
+            />
+            <Button
+              title="Cancel"
+              color={color}
+              onPress={() => setShowColorPickerModal(false)}
+            />
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
         transparent={true}
         visible={intervalModalVisible}
         onRequestClose={() => setIntervalModalVisible(false)}
@@ -180,7 +217,12 @@ export default ({ route, navigation }: MenuProps) => {
         </View>
       </Modal>
 
-      <View style={[Styles.controlGroup, { justifyContent: "flex-end" }]}>
+      <View style={[Styles.controlGroup, Styles.spaced]}>
+        <Button
+          title="Color Picker"
+          color={color}
+          onPress={() => setShowColorPickerModal(true)}
+        />
         <Dropdown /* Preset select */
           style={[Styles.dropdown, Styles.presetDropdown]}
           data={Preset.values.map(function (preset: Preset) {
