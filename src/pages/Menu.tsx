@@ -122,8 +122,9 @@ export default ({ route, navigation }: MenuProps) => {
         visible={showColorPickerModal}
         transparent={true}
         animationType="slide"
+
       >
-        <View style={Styles.colorPickerContainer}>
+        <View style={[Styles.colorPickerContainer, Styles.modal]}>
           <View style={Styles.colorPicker}>
             <ColorPicker
               color={color}
@@ -155,7 +156,7 @@ export default ({ route, navigation }: MenuProps) => {
         visible={intervalModalVisible}
         onRequestClose={() => setIntervalModalVisible(false)}
       >
-        <View style={Styles.intervalEditorBoxModal}>
+        <View style={[Styles.intervalEditorBoxModal, , Styles.modal]}>
           <IntervalEditorBox
             interval={modalInterval}
             changeInterval={(
@@ -197,7 +198,7 @@ export default ({ route, navigation }: MenuProps) => {
         visible={presetModalVisible}
         onRequestClose={() => setPresetModalVisible(false)}
       >
-        <View style={Styles.presetEditorBoxModal}>
+        <View style={[Styles.presetEditorBoxModal, Styles.modal]}>
           <PresetEditorBox preset={modalPreset} submitPreset={setModalPreset} />
           <View style={Styles.controlGroup}>
             <Button

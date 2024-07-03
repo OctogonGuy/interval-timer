@@ -95,7 +95,7 @@ export default ({ route, navigation }: TimerProps) => {
         transparent={true}
         animationType="slide"
       >
-        <View style={Styles.colorPickerContainer}>
+        <View style={[Styles.colorPickerContainer, Styles.modal]}>
           <View style={Styles.colorPicker}>
             <ColorPicker
               color={color}

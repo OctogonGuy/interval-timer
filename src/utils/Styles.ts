@@ -70,7 +70,6 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#ffffff",
     width: "80%",
     borderRadius: 5,
     alignSelf: "center",
@@ -96,7 +95,6 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#ffffff",
     width: "90%",
     borderRadius: 5,
     alignSelf: "center",
@@ -108,7 +106,7 @@ export default StyleSheet.create({
     backgroundColor: "#ffffff",
     borderColor: "#575757",
     borderWidth: 1,
-    paddingVertical: 5,
+    paddingVertical: 6,
     paddingHorizontal: 10,
   },
   alertDropdown: {
@@ -151,11 +149,15 @@ export default StyleSheet.create({
     justifyContent: "center",
     width: "80%",
     height: "60%",
-    backgroundColor: "#ffffff",
     borderRadius: 5,
     alignSelf: "center",
     marginVertical: "auto",
     gap: 40,
     padding: 15
+  },
+  modal: {
+    backgroundColor: "#f8f9fa",
+    borderColor: "#454545",
+    borderWidth: 3,
   }
 });
