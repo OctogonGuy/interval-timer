@@ -136,6 +136,10 @@ export default ({ route, navigation }: TimerProps) => {
             color={color}
             onPress={() => setShowColorPickerModal(true)}
           />
+          <IntervalDisplay
+            intervalIndex={intervalIndex}
+            numIntervals={numIntervals}
+          />
           <Dropdown /* Modality select */
             style={[Styles.dropdown, Styles.modalityDropdown]}
             data={[Modality.ANALOG, Modality.DIGITAL, Modality.BOTH].map(
@@ -153,21 +157,17 @@ export default ({ route, navigation }: TimerProps) => {
             }}
           />
         </View>
-        <View style={Styles.controlGroup}>
-          <IntervalDisplay
-            intervalIndex={intervalIndex}
-            numIntervals={numIntervals}
-          />
-        </View>
       </View>
 
-      {(modality === Modality.DIGITAL || modality === Modality.BOTH) && (
-        <DigitalTimerDisplay timeLeft={timeLeftStr} />
-      )}
+      <View style={{flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", width: "100%"}}>
+        {(modality === Modality.DIGITAL || modality === Modality.BOTH) && (
+          <DigitalTimerDisplay timeLeft={timeLeftStr} />
+        )}
 
-      {(modality === Modality.ANALOG || modality === Modality.BOTH) && (
-        <AnalogTimerDisplay progress={progress} color={color} />
-      )}
+        {(modality === Modality.ANALOG || modality === Modality.BOTH) && (
+          <AnalogTimerDisplay progress={progress} color={color} />
+        )}
+      </View>
 
       <View style={[Styles.container, { flex: 0, width: "100%" }]}>
         <View style={Styles.controlGroup}>
