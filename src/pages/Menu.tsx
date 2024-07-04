@@ -34,6 +34,7 @@ import Preset from "../constants/Preset";
 import CheckBox from "../components/CheckBox";
 import IntervalTimer from "../utils/IntervalTimer";
 import ColorPicker from "react-native-wheel-color-picker";
+import {lightenColor} from "../utils/Utils";
 
 export default ({ route, navigation }: MenuProps) => {
   // --- Modal ---
@@ -54,6 +55,7 @@ export default ({ route, navigation }: MenuProps) => {
   const [sharedAlert, setSharedAlert] = useState<boolean>(false);
   // --- GUI ---
   const [color, setColor] = useState("");
+  const [lightColor, setLightColor] = useState("");
 
   // Get data from storage upon first load
   useEffect(() => {
@@ -88,6 +90,11 @@ export default ({ route, navigation }: MenuProps) => {
     setStartButtonDisabled(emptyIntervalFound);
   }, [intervals]);
 
+  // Add derived colors
+  useEffect(() => {
+      setLightColor(lightenColor(color));
+  }, [color]);
+
   function addInterval() {
     const tempIntervals = [...intervals];
     tempIntervals.push(new Interval());
@@ -117,7 +124,7 @@ export default ({ route, navigation }: MenuProps) => {
   }
 
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, {backgroundColor: lightColor}]}>
       <Modal
         visible={showColorPickerModal}
         transparent={true}

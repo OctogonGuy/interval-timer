@@ -20,6 +20,7 @@ import ColorPicker from "react-native-wheel-color-picker";
 import Styles from "../utils/Styles";
 import { Dropdown } from "react-native-element-dropdown";
 import Modality from "../constants/Modality";
+import {lightenColor} from "../utils/Utils";
 
 export default ({ route, navigation }: TimerProps) => {
   // --- Modal ---
@@ -31,6 +32,7 @@ export default ({ route, navigation }: TimerProps) => {
   // --- GUI ---
   const [modality, setModality] = useState("");
   const [color, setColor] = useState("");
+  const [lightColor, setLightColor] = useState("");
   // --- Timer info ---
   const [intervalIndex, setIntervalIndex] = useState(0);
   const [numIntervals, setNumIntervals] = useState(0);
@@ -88,8 +90,13 @@ export default ({ route, navigation }: TimerProps) => {
     setRefreshDisplay(0);
   }, [intervalTimer]);
 
+  // Add derived colors
+  useEffect(() => {
+      setLightColor(lightenColor(color));
+  }, [color]);
+
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, {backgroundColor: lightColor}]}>
       <Modal
         visible={showColorPickerModal}
         transparent={true}
