@@ -19,16 +19,16 @@ export default (props: {
     <View style={Styles.intervalBoxContainer}>
       <TouchableOpacity style={Styles.intervalBox} onPress={props.onPress}>
         <View style={Styles.intervalBoxComponent}>
-          <Text style={Styles.intervalBoxNumber}>{props.hours}</Text>
-          <Text>h</Text>
+          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.hours}</Text>
+          <Text style={Styles.text}>h</Text>
         </View>
         <View style={Styles.intervalBoxComponent}>
-          <Text style={Styles.intervalBoxNumber}>{props.minutes}</Text>
-          <Text>m</Text>
+          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.minutes}</Text>
+          <Text style={Styles.text}>m</Text>
         </View>
         <View style={Styles.intervalBoxComponent}>
-          <Text style={Styles.intervalBoxNumber}>{props.seconds}</Text>
-          <Text>s</Text>
+          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.seconds}</Text>
+          <Text style={Styles.text}>s</Text>
         </View>
       </TouchableOpacity>
       {props.showAlert && (
@@ -43,6 +43,14 @@ export default (props: {
           labelField="label"
           valueField="value"
           maxHeight={450}
+          placeholderStyle={Styles.text}
+          renderItem={item => {
+            return (
+                <View style={{padding: 10}}>
+                  <Text style={Styles.text}>{item.label}</Text>
+                </View>
+            )
+          }}
         />
       )}
     </View>

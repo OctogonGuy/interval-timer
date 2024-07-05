@@ -126,7 +126,7 @@ export default StyleSheet.create({
     color: "#969696",
   },
   picker: {
-    width: 50
+    width: 70
   },
   checkBoxContainer: {
     flex: 0,
@@ -159,5 +159,9 @@ export default StyleSheet.create({
     backgroundColor: "#f8f9fa",
     borderColor: "#454545",
     borderWidth: 3,
+  },
+  text: {
+    fontFamily: "Barlow-Regular",
+    fontSize: 18,
   }
 });

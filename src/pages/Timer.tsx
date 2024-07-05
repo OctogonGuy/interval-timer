@@ -169,6 +169,15 @@ export default ({ route, navigation }: TimerProps) => {
               setModality(item.value);
               storeModality(item.value);
             }}
+            selectedTextStyle={Styles.text}
+            placeholderStyle={Styles.text}
+            renderItem={item => {
+              return (
+                  <View style={{padding: 10}}>
+                    <Text style={Styles.text}>{item.label}</Text>
+                  </View>
+              )
+            }}
           />
         </View>
       </View>

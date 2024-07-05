@@ -29,8 +29,9 @@ export default (props: {
           options={items}
           onChange={(index) => setHours(parseInt(items[index]))}
           visibleRest={1}
+          itemTextStyle={Styles.text}
         />
-        <Text>h</Text>
+        <Text style={Styles.text}>h</Text>
       </View>
 
       <View style={Styles.intervalBoxComponent}>
@@ -40,8 +41,9 @@ export default (props: {
           options={items}
           onChange={(index) => setMinutes(parseInt(items[index]))}
           visibleRest={1}
+          itemTextStyle={Styles.text}
         />
-        <Text>m</Text>
+        <Text style={Styles.text}>m</Text>
       </View>
 
       <View style={Styles.intervalBoxComponent}>
@@ -51,8 +53,9 @@ export default (props: {
           options={items}
           onChange={(index) => setSeconds(parseInt(items[index]))}
           visibleRest={1}
+          itemTextStyle={Styles.text}
         />
-        <Text>s</Text>
+        <Text style={Styles.text}>s</Text>
       </View>
     </View>
   );

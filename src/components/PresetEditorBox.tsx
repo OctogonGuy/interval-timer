@@ -23,7 +23,7 @@ export default (props: {
             style={Styles.presetItem}
             key={props.preset.presetValues.indexOf(value)}
           >
-            <Text>{value.name}</Text>
+            <Text style={Styles.text}>{value.name}</Text>
             <WheelPicker
               containerStyle={Styles.picker}
               selectedIndex={numbers.indexOf(value.numUnits)}
@@ -32,6 +32,7 @@ export default (props: {
                 value.numUnits = parseInt(items[index]);
               }}
               visibleRest={1}
+              itemTextStyle={Styles.text}
             />
             {value.alert && (
               <Dropdown
@@ -47,6 +48,14 @@ export default (props: {
                 labelField="label"
                 valueField="value"
                 maxHeight={350}
+                placeholderStyle={Styles.text}
+                renderItem={item => {
+                  return (
+                      <View style={{padding: 10}}>
+                        <Text style={Styles.text}>{item.label}</Text>
+                      </View>
+                  )
+                }}
               />
             )}
           </View>

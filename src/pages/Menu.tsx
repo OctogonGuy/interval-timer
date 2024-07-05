@@ -268,6 +268,14 @@ export default ({ route, navigation }: MenuProps) => {
             setModalPreset(item.value);
             setPresetModalVisible(true);
           }}
+            placeholderStyle={Styles.text}
+            renderItem={item => {
+              return (
+                  <View style={{padding: 10}}>
+                    <Text style={Styles.text}>{item.label}</Text>
+                  </View>
+              )
+            }}
         />
       </View>
 
@@ -280,7 +288,7 @@ export default ({ route, navigation }: MenuProps) => {
         renderItem={({ item, index }) => {
           return (
             <View style={Styles.intervalBoxContainer}>
-              <Text>{index + 1}.</Text>
+              <Text style={Styles.text}>{index + 1}.</Text>
               <IntervalBox
                 hours={item.hours()}
                 minutes={item.minutes()}
@@ -333,7 +341,7 @@ export default ({ route, navigation }: MenuProps) => {
             Styles.alertDropdown,
             !sharedAlert ? Styles.dropdownDisabled : null,
           ]}
-          placeholderStyle={!sharedAlert ? Styles.dropdownTextDisabled : null}
+          placeholderStyle={!sharedAlert ? [Styles.dropdownTextDisabled, Styles.text] : Styles.text}
           value={alert.name}
           onChange={(item) => {
             setAlert(item.value);
@@ -347,6 +355,13 @@ export default ({ route, navigation }: MenuProps) => {
           labelField="label"
           valueField="value"
           disable={!sharedAlert}
+            renderItem={item => {
+              return (
+                  <View style={{padding: 10}}>
+                    <Text style={Styles.text}>{item.label}</Text>
+                  </View>
+              )
+            }}
         />
         <CheckBox
           value={sharedAlert}

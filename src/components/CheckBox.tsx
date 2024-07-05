@@ -20,7 +20,7 @@ export default (props: {
           setChecked(e);
         }}
         color={props.color}/>
-      <Text>{props.text}</Text>
+      <Text style={Styles.text}>{props.text}</Text>
     </View>
   );
 };
