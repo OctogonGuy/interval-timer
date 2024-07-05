@@ -1,4 +1,4 @@
-import { Button, View, Text, Modal } from "react-native";
+import { View, Text, Modal } from "react-native";
 import { TimerProps } from "../utils/Navigation";
 import IntervalDisplay from "../components/IntervalDisplay";
 import DigitalTimerDisplay from "../components/DigitalTimerDisplay";
@@ -20,7 +20,8 @@ import ColorPicker from "react-native-wheel-color-picker";
 import Styles from "../utils/Styles";
 import { Dropdown } from "react-native-element-dropdown";
 import Modality from "../constants/Modality";
-import {lightenColor} from "../utils/Utils";
+import {lightenColor, darkenColor, textColor} from "../utils/Utils";
+import {Button} from "../components/Button";
 
 export default ({ route, navigation }: TimerProps) => {
   // --- Modal ---
@@ -33,6 +34,8 @@ export default ({ route, navigation }: TimerProps) => {
   const [modality, setModality] = useState("");
   const [color, setColor] = useState("");
   const [lightColor, setLightColor] = useState("");
+  const [darkColor, setDarkColor] = useState("");
+  const [fontColor, setFontColor] = useState("");
   // --- Timer info ---
   const [intervalIndex, setIntervalIndex] = useState(0);
   const [numIntervals, setNumIntervals] = useState(0);
@@ -93,6 +96,8 @@ export default ({ route, navigation }: TimerProps) => {
   // Add derived colors
   useEffect(() => {
       setLightColor(lightenColor(color));
+      setDarkColor(darkenColor(color));
+      setFontColor(textColor(color));
   }, [color]);
 
   return (
@@ -112,18 +117,24 @@ export default ({ route, navigation }: TimerProps) => {
           </View>
           <View style={Styles.controlGroup}>
             <Button
-              title="Ok"
+              text="Ok"
               color={color}
-              onPress={() => {
+              lightColor={lightColor}
+              darkColor={darkColor}
+              textColor={fontColor}
+              pressableProps={{onPress: () => {
                 setColor(tempColor);
                 storeColor(tempColor);
                 setShowColorPickerModal(false);
-              }}
+              }}}
             />
             <Button
-              title="Cancel"
+              text="Cancel"
               color={color}
-              onPress={() => setShowColorPickerModal(false)}
+              lightColor={lightColor}
+              darkColor={darkColor}
+              textColor={fontColor}
+              pressableProps={{onPress: () => setShowColorPickerModal(false)}}
             />
           </View>
         </View>
@@ -132,9 +143,12 @@ export default ({ route, navigation }: TimerProps) => {
       <View>
         <View style={[Styles.controlGroup, Styles.spaced]}>
           <Button
-            title="Color Picker"
+            text="Color Picker"
             color={color}
-            onPress={() => setShowColorPickerModal(true)}
+            lightColor={lightColor}
+            darkColor={darkColor}
+            textColor={fontColor}
+            pressableProps={{onPress: () => setShowColorPickerModal(true)}}
           />
           <IntervalDisplay
             intervalIndex={intervalIndex}
@@ -172,30 +186,45 @@ export default ({ route, navigation }: TimerProps) => {
       <View style={[Styles.container, { flex: 0, width: "100%" }]}>
         <View style={Styles.controlGroup}>
           <Button
-            title="Previous"
+            text="Previous"
             color={color}
-            onPress={() => intervalTimer?.previous()} />
+            lightColor={lightColor}
+            darkColor={darkColor}
+            textColor={fontColor}
+            pressableProps={{onPress: () => intervalTimer?.previous()}} />
           <Button
-            title={timerState === State.STOPPED ? "Resume" : "Pause"}
+            text={timerState === State.STOPPED ? "Resume" : "Pause"}
             color={color}
-            onPress={() => intervalTimer?.toggle()}
+            lightColor={lightColor}
+            darkColor={darkColor}
+            textColor={fontColor}
+            pressableProps={{onPress: () => intervalTimer?.toggle()}}
           />
           <Button
-            title="Next"
+            text="Next"
             color={color}
-            onPress={() => intervalTimer?.next()} />
+            lightColor={lightColor}
+            darkColor={darkColor}
+            textColor={fontColor}
+            pressableProps={{onPress: () => intervalTimer?.next()}} />
         </View>
 
         <View style={Styles.controlGroup}>
           <Button
-            title="Restart Timer"
+            text="Restart Timer"
             color={color}
-            onPress={() => intervalTimer?.restartTimer()}
+            lightColor={lightColor}
+            darkColor={darkColor}
+            textColor={fontColor}
+            pressableProps={{onPress: () => intervalTimer?.restartTimer()}}
           />
           <Button
-            title="Restart Interval"
+            text="Restart Interval"
             color={color}
-            onPress={() => intervalTimer?.restartInterval()}
+            lightColor={lightColor}
+            darkColor={darkColor}
+            textColor={fontColor}
+            pressableProps={{onPress: () => intervalTimer?.restartInterval()}}
           />
         </View>
       </View>

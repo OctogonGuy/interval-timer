@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
-  Button,
   FlatList,
   Modal,
   Pressable,
@@ -34,7 +33,8 @@ import Preset from "../constants/Preset";
 import CheckBox from "../components/CheckBox";
 import IntervalTimer from "../utils/IntervalTimer";
 import ColorPicker from "react-native-wheel-color-picker";
-import {lightenColor} from "../utils/Utils";
+import {lightenColor, darkenColor, textColor} from "../utils/Utils";
+import {Button} from "../components/Button";
 
 export default ({ route, navigation }: MenuProps) => {
   // --- Modal ---
@@ -56,6 +56,8 @@ export default ({ route, navigation }: MenuProps) => {
   // --- GUI ---
   const [color, setColor] = useState("");
   const [lightColor, setLightColor] = useState("");
+  const [darkColor, setDarkColor] = useState("");
+  const [fontColor, setFontColor] = useState("");
 
   // Get data from storage upon first load
   useEffect(() => {
@@ -93,6 +95,8 @@ export default ({ route, navigation }: MenuProps) => {
   // Add derived colors
   useEffect(() => {
       setLightColor(lightenColor(color));
+      setDarkColor(darkenColor(color));
+      setFontColor(textColor(color));
   }, [color]);
 
   function addInterval() {
@@ -141,18 +145,24 @@ export default ({ route, navigation }: MenuProps) => {
           </View>
           <View style={Styles.controlGroup}>
             <Button
-              title="Ok"
+              text="Ok"
               color={color}
-              onPress={() => {
+              lightColor={lightColor}
+              darkColor={darkColor}
+              textColor={fontColor}
+              pressableProps={{onPress: () => {
                 setColor(tempColor);
                 storeColor(tempColor);
                 setShowColorPickerModal(false);
-              }}
+              }}}
             />
             <Button
-              title="Cancel"
+              text="Cancel"
               color={color}
-              onPress={() => setShowColorPickerModal(false)}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+              pressableProps={{onPress: () => setShowColorPickerModal(false)}}
             />
           </View>
         </View>
@@ -184,17 +194,23 @@ export default ({ route, navigation }: MenuProps) => {
 
           <View style={Styles.controlGroup}>
             <Button
-              title="Confirm"
+              text="Confirm"
               color={color}
-              onPress={() => {
+              lightColor={lightColor}
+              darkColor={darkColor}
+              textColor={fontColor}
+              pressableProps={{onPress: () => {
                 changeInterval(modalIntervalIndex, modalInterval);
                 setIntervalModalVisible(false);
-              }}
+              }}}
             />
             <Button
-              title="Cancel"
+              text="Cancel"
               color={color}
-              onPress={() => setIntervalModalVisible(false)}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+              pressableProps={{onPress: () => setIntervalModalVisible(false)}}
             />
           </View>
         </View>
@@ -209,17 +225,23 @@ export default ({ route, navigation }: MenuProps) => {
           <PresetEditorBox preset={modalPreset} submitPreset={setModalPreset} />
           <View style={Styles.controlGroup}>
             <Button
-              title="Confirm"
+              text="Confirm"
               color={color}
-              onPress={() => {
+              lightColor={lightColor}
+              darkColor={darkColor}
+              textColor={fontColor}
+              pressableProps={{onPress: () => {
                 usePreset(modalPreset);
                 setPresetModalVisible(false);
-              }}
+              }}}
             />
             <Button
-              title="Cancel"
+              text="Cancel"
               color={color}
-              onPress={() => setPresetModalVisible(false)}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+              pressableProps={{onPress: () => setPresetModalVisible(false)}}
             />
           </View>
         </View>
@@ -227,9 +249,12 @@ export default ({ route, navigation }: MenuProps) => {
 
       <View style={[Styles.controlGroup, Styles.spaced]}>
         <Button
-          title="Color Picker"
+          text="Color Picker"
           color={color}
-          onPress={() => setShowColorPickerModal(true)}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+          pressableProps={{onPress: () => setShowColorPickerModal(true)}}
         />
         <Dropdown /* Preset select */
           style={[Styles.dropdown, Styles.presetDropdown]}
@@ -282,14 +307,22 @@ export default ({ route, navigation }: MenuProps) => {
 
       <View style={Styles.controlGroup}>
         <Button
-          title="Add"
+          text="Add"
           color={color}
-          onPress={addInterval} />
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+          pressableProps={{onPress: addInterval}} />
         <Button
           color={color}
-          title="Remove"
-          onPress={removeInterval}
-          disabled={removeButtonDisabled}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+          text="Remove"
+          pressableProps={{
+              onPress: removeInterval,
+              disabled: removeButtonDisabled
+          }}
         />
       </View>
 
@@ -337,22 +370,32 @@ export default ({ route, navigation }: MenuProps) => {
 
       <View style={Styles.controlGroup}>
         <Button
-          title="Start"
+          text="Start"
           color={color}
-          disabled={startButtonDisabled}
-          onPress={() =>
-            navigation.navigate("Timer", {
-              intervals: intervals,
-              repeat: repeat,
-              alertName: sharedAlert ? alert.name : "",
-            })
-          }
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+          pressableProps={{
+              onPress: () => {
+                navigation.navigate("Timer", {
+                  intervals: intervals,
+                  repeat: repeat,
+                  alertName: sharedAlert ? alert.name : "",
+                })
+              },
+              disabled: startButtonDisabled
+          }}
         />
         <Button
-          title="Continue"
+          text="Continue"
           color={color}
-          disabled={startButtonDisabled}
-          onPress={() => navigation.navigate("Timer")}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+          pressableProps={{
+              onPress: () => navigation.navigate("Timer"),
+              disabled: startButtonDisabled
+          }}
         />
       </View>
     </View>
