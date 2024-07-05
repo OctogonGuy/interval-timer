@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import {
   Button,
   FlatList,
@@ -35,13 +35,12 @@ import CheckBox from "../components/CheckBox";
 import IntervalTimer from "../utils/IntervalTimer";
 import ColorPicker from "react-native-wheel-color-picker";
 import {lightenColor} from "../utils/Utils";
+import { ColorContext } from "../contexts/ColorContext"
 
 export default ({ route, navigation }: MenuProps) => {
   // --- Modal ---
   const [intervalModalVisible, setIntervalModalVisible] = useState(false);
   const [presetModalVisible, setPresetModalVisible] = useState(false);
-  const [showColorPickerModal, setShowColorPickerModal] = useState(false);
-  const [tempColor, setTempColor] = useState("");
   // --- Interval info ---
   const [intervals, setIntervals] = useState(new Array<Interval>());
   const [modalInterval, setModalInterval] = useState(new Interval());
@@ -53,9 +52,9 @@ export default ({ route, navigation }: MenuProps) => {
   const [alert, setAlert] = useState<Alert>(Alert.SILENT);
   const [repeat, setRepeat] = useState<boolean>(false);
   const [sharedAlert, setSharedAlert] = useState<boolean>(false);
-  // --- GUI ---
-  const [color, setColor] = useState("");
-  const [lightColor, setLightColor] = useState("");
+
+  const { color } = useContext(ColorContext);
+  const { lightColor } = useContext(ColorContext);
 
   // Get data from storage upon first load
   useEffect(() => {
@@ -66,14 +65,6 @@ export default ({ route, navigation }: MenuProps) => {
       setSharedAlert(await getSharedAlert());
     }
     load();
-    async function loadColor() {
-      const color = await getColor();
-      setColor(color);
-    }
-    loadColor();
-    navigation.addListener('focus', () => {
-      loadColor();
-    })
   }, []);
 
   useEffect(() => {
@@ -89,11 +80,6 @@ export default ({ route, navigation }: MenuProps) => {
     }
     setStartButtonDisabled(emptyIntervalFound);
   }, [intervals]);
-
-  // Add derived colors
-  useEffect(() => {
-      setLightColor(lightenColor(color));
-  }, [color]);
 
   function addInterval() {
     const tempIntervals = [...intervals];
@@ -124,237 +110,204 @@ export default ({ route, navigation }: MenuProps) => {
   }
 
   return (
-    <View style={[Styles.container, {backgroundColor: lightColor}]}>
-      <Modal
-        visible={showColorPickerModal}
-        transparent={true}
-        animationType="slide"
-
-      >
-        <View style={[Styles.colorPickerContainer, Styles.modal]}>
-          <View style={Styles.colorPicker}>
-            <ColorPicker
-              color={color}
-              onColorChangeComplete={setTempColor}
-              swatches={false}
-            />
-          </View>
-          <View style={Styles.controlGroup}>
-            <Button
-              title="Ok"
-              color={color}
-              onPress={() => {
-                setColor(tempColor);
-                storeColor(tempColor);
-                setShowColorPickerModal(false);
-              }}
-            />
-            <Button
-              title="Cancel"
-              color={color}
-              onPress={() => setShowColorPickerModal(false)}
-            />
-          </View>
-        </View>
-      </Modal>
-
-      <Modal
-        transparent={true}
-        visible={intervalModalVisible}
-        onRequestClose={() => setIntervalModalVisible(false)}
-      >
-        <View style={[Styles.intervalEditorBoxModal, , Styles.modal]}>
-          <IntervalEditorBox
-            interval={modalInterval}
-            changeInterval={(
-              hours: number,
-              minutes: number,
-              seconds: number
-            ) => {
-              const newValue: Interval = new Interval(
-                hours,
-                minutes,
-                seconds,
-                0,
-                modalInterval.alert
-              );
-              setModalInterval(newValue);
-            }}
-          />
-
-          <View style={Styles.controlGroup}>
-            <Button
-              title="Confirm"
-              color={color}
-              onPress={() => {
-                changeInterval(modalIntervalIndex, modalInterval);
-                setIntervalModalVisible(false);
-              }}
-            />
-            <Button
-              title="Cancel"
-              color={color}
-              onPress={() => setIntervalModalVisible(false)}
-            />
-          </View>
-        </View>
-      </Modal>
-
-      <Modal
-        transparent={true}
-        visible={presetModalVisible}
-        onRequestClose={() => setPresetModalVisible(false)}
-      >
-        <View style={[Styles.presetEditorBoxModal, Styles.modal]}>
-          <PresetEditorBox preset={modalPreset} submitPreset={setModalPreset} />
-          <View style={Styles.controlGroup}>
-            <Button
-              title="Confirm"
-              color={color}
-              onPress={() => {
-                usePreset(modalPreset);
-                setPresetModalVisible(false);
-              }}
-            />
-            <Button
-              title="Cancel"
-              color={color}
-              onPress={() => setPresetModalVisible(false)}
-            />
-          </View>
-        </View>
-      </Modal>
-
-      <View style={[Styles.controlGroup, Styles.spaced]}>
-        <Button
-          title="Color Picker"
-          color={color}
-          onPress={() => setShowColorPickerModal(true)}
-        />
-        <Dropdown /* Preset select */
-          style={[Styles.dropdown, Styles.presetDropdown]}
-          data={Preset.values.map(function (preset: Preset) {
-            return { label: preset.name, value: preset };
-          })}
-          labelField="label"
-          valueField="value"
-          placeholder="Preset"
-          onChange={(item) => {
-            setModalPreset(item.value);
-            setPresetModalVisible(true);
-          }}
-        />
-      </View>
-
-      <FlatList /* Interval list */
-        style={Styles.intervalList}
-        ItemSeparatorComponent={() => {
-          return <View style={Styles.separator} />;
-        }}
-        data={intervals}
-        renderItem={({ item, index }) => {
-          return (
-            <View style={Styles.intervalBoxContainer}>
-              <Text>{index + 1}.</Text>
-              <IntervalBox
-                hours={item.hours()}
-                minutes={item.minutes()}
-                seconds={item.seconds()}
-                showAlert={!sharedAlert}
-                alert={item.alert}
-                onPress={() => {
-                  setModalIntervalIndex(intervals.indexOf(item));
-                  setModalInterval(intervals[intervals.indexOf(item)]);
-                  setIntervalModalVisible(true);
-                }}
-                changeIntervalAlert={(alertItem: any) => {
-                  const newValue: Alert = alertItem.value;
-                  const index: number = intervals.indexOf(item);
-                  const newInterval = item;
-                  newInterval.alert = newValue;
-                  changeInterval(index, newInterval);
+      <ColorContext.Consumer>
+          {() => (
+        <View style={[Styles.container, {backgroundColor: lightColor}]}>
+          <Modal
+            transparent={true}
+            visible={intervalModalVisible}
+            onRequestClose={() => setIntervalModalVisible(false)}
+          >
+            <View style={[Styles.intervalEditorBoxModal, , Styles.modal]}>
+              <IntervalEditorBox
+                interval={modalInterval}
+                changeInterval={(
+                  hours: number,
+                  minutes: number,
+                  seconds: number
+                ) => {
+                  const newValue: Interval = new Interval(
+                    hours,
+                    minutes,
+                    seconds,
+                    0,
+                    modalInterval.alert
+                  );
+                  setModalInterval(newValue);
                 }}
               />
+    
+              <View style={Styles.controlGroup}>
+                <Button
+                  title="Confirm"
+                  color={color}
+                  onPress={() => {
+                    changeInterval(modalIntervalIndex, modalInterval);
+                    setIntervalModalVisible(false);
+                  }}
+                />
+                <Button
+                  title="Cancel"
+                  color={color}
+                  onPress={() => setIntervalModalVisible(false)}
+                />
+              </View>
             </View>
-          );
-        }}
-      />
-
-      <View style={Styles.controlGroup}>
-        <Button
-          title="Add"
-          color={color}
-          onPress={addInterval} />
-        <Button
-          color={color}
-          title="Remove"
-          onPress={removeInterval}
-          disabled={removeButtonDisabled}
-        />
-      </View>
-
-      <View style={Styles.controlGroup}>
-        <Dropdown
-          style={[
-            Styles.dropdown,
-            Styles.alertDropdown,
-            !sharedAlert ? Styles.dropdownDisabled : null,
-          ]}
-          placeholderStyle={!sharedAlert ? Styles.dropdownTextDisabled : null}
-          value={alert.name}
-          onChange={(item) => {
-            setAlert(item.value);
-            storeAlert(item.value);
-          }}
-          placeholder={alert.name}
-          maxHeight={450}
-          data={Alert.values.map(function (alert: Alert) {
-            return { label: alert.name, value: alert };
-          })}
-          labelField="label"
-          valueField="value"
-          disable={!sharedAlert}
-        />
-        <CheckBox
-          value={sharedAlert}
-          color={color}
-          onValueChange={(value) => {
-            setSharedAlert(value);
-            storeSharedAlert(value);
-          }}
-          text="Shared"
-        />
-        <CheckBox
-          value={repeat}
-          color={color}
-          onValueChange={(value) => {
-            setRepeat(value);
-            storeRepeat(value);
-          }}
-          text="Repeat"
-        />
-      </View>
-
-      <View style={Styles.controlGroup}>
-        <Button
-          title="Start"
-          color={color}
-          disabled={startButtonDisabled}
-          onPress={() =>
-            navigation.navigate("Timer", {
-              intervals: intervals,
-              repeat: repeat,
-              alertName: sharedAlert ? alert.name : "",
-            })
-          }
-        />
-        <Button
-          title="Continue"
-          color={color}
-          disabled={startButtonDisabled}
-          onPress={() => navigation.navigate("Timer")}
-        />
-      </View>
-    </View>
+          </Modal>
+    
+          <Modal
+            transparent={true}
+            visible={presetModalVisible}
+            onRequestClose={() => setPresetModalVisible(false)}
+          >
+            <View style={[Styles.presetEditorBoxModal, Styles.modal]}>
+              <PresetEditorBox preset={modalPreset} submitPreset={setModalPreset} />
+              <View style={Styles.controlGroup}>
+                <Button
+                  title="Confirm"
+                  color={color}
+                  onPress={() => {
+                    usePreset(modalPreset);
+                    setPresetModalVisible(false);
+                  }}
+                />
+                <Button
+                  title="Cancel"
+                  color={color}
+                  onPress={() => setPresetModalVisible(false)}
+                />
+              </View>
+            </View>
+          </Modal>
+    
+          <View style={[Styles.controlGroup, Styles.end]}>
+            <Dropdown /* Preset select */
+              style={[Styles.dropdown, Styles.presetDropdown]}
+              data={Preset.values.map(function (preset: Preset) {
+                return { label: preset.name, value: preset };
+              })}
+              labelField="label"
+              valueField="value"
+              placeholder="Preset"
+              onChange={(item) => {
+                setModalPreset(item.value);
+                setPresetModalVisible(true);
+              }}
+            />
+          </View>
+    
+          <FlatList /* Interval list */
+            style={Styles.intervalList}
+            ItemSeparatorComponent={() => {
+              return <View style={Styles.separator} />;
+            }}
+            data={intervals}
+            renderItem={({ item, index }) => {
+              return (
+                <View style={Styles.intervalBoxContainer}>
+                  <Text>{index + 1}.</Text>
+                  <IntervalBox
+                    hours={item.hours()}
+                    minutes={item.minutes()}
+                    seconds={item.seconds()}
+                    showAlert={!sharedAlert}
+                    alert={item.alert}
+                    onPress={() => {
+                      setModalIntervalIndex(intervals.indexOf(item));
+                      setModalInterval(intervals[intervals.indexOf(item)]);
+                      setIntervalModalVisible(true);
+                    }}
+                    changeIntervalAlert={(alertItem: any) => {
+                      const newValue: Alert = alertItem.value;
+                      const index: number = intervals.indexOf(item);
+                      const newInterval = item;
+                      newInterval.alert = newValue;
+                      changeInterval(index, newInterval);
+                    }}
+                  />
+                </View>
+              );
+            }}
+          />
+    
+          <View style={Styles.controlGroup}>
+            <Button
+              title="Add"
+              color={color}
+              onPress={addInterval} />
+            <Button
+              color={color}
+              title="Remove"
+              onPress={removeInterval}
+              disabled={removeButtonDisabled}
+            />
+          </View>
+    
+          <View style={Styles.controlGroup}>
+            <Dropdown
+              style={[
+                Styles.dropdown,
+                Styles.alertDropdown,
+                !sharedAlert ? Styles.dropdownDisabled : null,
+              ]}
+              placeholderStyle={!sharedAlert ? Styles.dropdownTextDisabled : null}
+              value={alert.name}
+              onChange={(item) => {
+                setAlert(item.value);
+                storeAlert(item.value);
+              }}
+              placeholder={alert.name}
+              maxHeight={450}
+              data={Alert.values.map(function (alert: Alert) {
+                return { label: alert.name, value: alert };
+              })}
+              labelField="label"
+              valueField="value"
+              disable={!sharedAlert}
+            />
+            <CheckBox
+              value={sharedAlert}
+              color={color}
+              onValueChange={(value) => {
+                setSharedAlert(value);
+                storeSharedAlert(value);
+              }}
+              text="Shared"
+            />
+            <CheckBox
+              value={repeat}
+              color={color}
+              onValueChange={(value) => {
+                setRepeat(value);
+                storeRepeat(value);
+              }}
+              text="Repeat"
+            />
+          </View>
+    
+          <View style={Styles.controlGroup}>
+            <Button
+              title="Start"
+              color={color}
+              disabled={startButtonDisabled}
+              onPress={() =>
+                navigation.navigate("Timer", {
+                  color: color,
+                  intervals: intervals,
+                  repeat: repeat,
+                  alertName: sharedAlert ? alert.name : "",
+                })
+              }
+            />
+            <Button
+              title="Continue"
+              color={color}
+              disabled={startButtonDisabled}
+              onPress={() => navigation.navigate("Timer")}
+            />
+          </View>
+        </View>
+          )}
+      </ColorContext.Consumer>
   );
 };

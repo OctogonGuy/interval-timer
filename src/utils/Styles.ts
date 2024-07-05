@@ -20,6 +20,9 @@ export default StyleSheet.create({
   spaced: {
     justifyContent: "space-between",
   },
+  end: {
+    justifyContent: "flex-end",
+  },
   intervalList: {
     width: "100%",
   },

@@ -2,8 +2,11 @@ import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navig
 import Interval from "./Interval";
 
 export type RootStackParamList = {
-  Menu: undefined;
+  Menu: {
+    color: string;
+  };
   Timer: {
+    color: string;
     intervals: Interval[],
     repeat: boolean,
     alertName: string

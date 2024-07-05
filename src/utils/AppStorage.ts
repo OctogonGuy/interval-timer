@@ -111,7 +111,7 @@ export const getColor = async() => {
   if (color)
     return color;
   else
-    return "maroon";
+    return "#800000";
 }
 
 export const storeModality = async(modality: string) => {
