@@ -27,14 +27,14 @@ export default class Alert {
 	static map: {[id: string]: Alert} = {};
 
 	static TELEPHONE = new Alert("Telephone", telephone_file);
-	static CHIMES_UP = new Alert("Chimes Up", chimes_up_file);
-	static CHIMES_DOWN = new Alert("Chimes Down", chimes_down_file);
+	static CHIMES_UP = new Alert("Chime Up", chimes_up_file);
+	static CHIMES_DOWN = new Alert("Chime Down", chimes_down_file);
 	static WHISTLE = new Alert("Whistle", whistle_file);
 	static WOODBLOCK = new Alert("Woodblock", woodblock_file);
 	static XYLOPHONE = new Alert("Xylophone", xylophone_file);
 	static OCARINA = new Alert("Ocarina", ocarina_file);
-	static GRANDFATHER_1 = new Alert("Grandfather 1", grandfather_1_file);
-	static GRANDFATHER_2 = new Alert("Grandfather 2", grandfather_2_file);
+	static GRANDFATHER_1 = new Alert("Grandf. 1", grandfather_1_file);
+	static GRANDFATHER_2 = new Alert("Grandf. 2", grandfather_2_file);
 	static DING = new Alert("Ding", ding_file);
 	static DING_DONG = new Alert("Ding Dong", ding_dong_file);
 	static DONG_DING = new Alert("Dong Ding", dong_ding_file);

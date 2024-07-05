@@ -52,8 +52,7 @@ export default StyleSheet.create({
   },
   intervalBoxNumber: {
     backgroundColor: "#ffffff",
-    paddingVertical: 5,
-    width: 35,
+    width: 42,
     textAlign: "center",
     borderRadius: 5,
   },
@@ -80,7 +79,7 @@ export default StyleSheet.create({
   presetModal: {
     flex: 0,
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "center",
   },
   presetItem: {
@@ -106,17 +105,17 @@ export default StyleSheet.create({
     backgroundColor: "#ffffff",
     borderColor: "#575757",
     borderWidth: 1,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
   },
   alertDropdown: {
-    width: 150
+    width: 140
   },
   presetDropdown: {
-    width: 180
+    width: 160
   },
   modalityDropdown: {
-    width: 120
+    width: 95
   },
   dropdownDisabled: {
     backgroundColor: "#bbbbbb",
