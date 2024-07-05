@@ -1,8 +1,8 @@
 import Svg, { Circle, Path } from "react-native-svg";
 import Styles from "../utils/Styles";
 
-const innerRadius = 40;
-const outerWidth = 5;
+const innerRadius = 44;
+const outerWidth = 3;
 
 export default (props: { progress: number; color: string }) => {
   return (

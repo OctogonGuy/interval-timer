@@ -38,7 +38,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 8,
+    gap: 2,
     padding: 5,
     borderRadius: 3,
     backgroundColor: "#00000005",
@@ -163,5 +163,7 @@ export default StyleSheet.create({
   text: {
     fontFamily: "Barlow-Regular",
     fontSize: 18,
+    paddingTop: -2,
+    paddingBottom: 2
   }
 });

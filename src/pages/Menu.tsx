@@ -247,7 +247,7 @@ export default ({ route, navigation }: MenuProps) => {
         </View>
       </Modal>
 
-      <View style={[Styles.controlGroup, Styles.spaced]}>
+      <View style={[Styles.controlGroup, Styles.spaced, {paddingBottom: 10}]}>
         <Button
           text="Color Picker"
           color={color}
@@ -313,7 +313,7 @@ export default ({ route, navigation }: MenuProps) => {
         }}
       />
 
-      <View style={Styles.controlGroup}>
+      <View style={[Styles.controlGroup, {paddingTop: 10}]}>
         <Button
           text="Add"
           color={color}
