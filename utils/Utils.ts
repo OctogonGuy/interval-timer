@@ -38,7 +38,7 @@ export function textColor(color: string) {
     let green: number = parseInt(color.substring(2, 4), 16);
     let blue: number = parseInt(color.substring(4, 6), 16);
     let avg = (red + green + blue) / 3;
-    if (avg < 155)
+    if (avg < 255 / 2)
         return "#ffffff";
     else
         return "#000000";

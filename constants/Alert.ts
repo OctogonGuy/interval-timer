@@ -17,9 +17,6 @@ const dong_ding_file = require(dir + "dong_ding.mp3");
 const cymbal_file = require(dir + "cymbal.mp3");
 const apito_file = require(dir + "apito.mp3");
 const chords_file = require(dir + "chords.mp3");
-const obatala_file = require(dir + "obatala.mp3");
-const brave_wind_file = require(dir + "brave_wind.mp3");
-const omomuki_file = require(dir + "omomuki.mp3");
 
 export default class Alert {
 
@@ -41,9 +38,6 @@ export default class Alert {
 	static CYMBAL = new Alert("Cymbal", cymbal_file);
 	static APITO = new Alert("Apito", apito_file);
 	static CHORDS = new Alert("Chords", chords_file);
-	static OBATALA = new Alert("Obatala", obatala_file);
-	static BRAVE_WIND = new Alert("Brave Wind", brave_wind_file);
-	static OMOMUKI = new Alert("Omomuki", omomuki_file);
 	static SILENT = new Alert("Silent");
 
 	static sound: Audio.Sound = new Audio.Sound();
