@@ -42,6 +42,7 @@ export default StyleSheet.create({
     padding: '2%',
     borderRadius: 3,
     backgroundColor: "#00000005",
+    maxWidth: '50%'
   },
   intervalBoxComponent: {
     flex: 1,
@@ -158,5 +159,8 @@ export default StyleSheet.create({
     fontSize: 18,
     paddingTop: -2,
     paddingBottom: 2,
+  },
+  title: {
+    fontSize: 23,
   }
 });

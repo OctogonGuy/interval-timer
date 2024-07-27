@@ -143,7 +143,7 @@ export default ({ route, navigation }: TimerProps) => {
       <View>
         <View style={[Styles.controlGroup, Styles.spaced]}>
           <Button
-            text="Color Picker"
+            text="Color"
             color={color}
             lightColor={lightColor}
             darkColor={darkColor}

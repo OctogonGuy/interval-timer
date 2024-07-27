@@ -222,6 +222,7 @@ export default ({ route, navigation }: MenuProps) => {
         onRequestClose={() => setPresetModalVisible(false)}
       >
         <View style={[Styles.presetEditorBoxModal, Styles.modal]}>
+          <Text style={[Styles.text, Styles.title]}>{modalPreset.name}</Text>
           <PresetEditorBox preset={modalPreset} submitPreset={setModalPreset} />
           <View style={Styles.controlGroup}>
             <Button
@@ -249,7 +250,7 @@ export default ({ route, navigation }: MenuProps) => {
 
       <View style={[Styles.controlGroup, Styles.spaced, {paddingBottom: 10}]}>
         <Button
-          text="Color Picker"
+          text="Color"
           color={color}
           lightColor={lightColor}
           darkColor={darkColor}
