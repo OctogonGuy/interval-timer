@@ -287,9 +287,8 @@ export default ({ route, navigation }: MenuProps) => {
         data={intervals}
         renderItem={({ item, index }) => {
           return (
-            <View style={Styles.intervalBoxContainer}>
-              <Text style={Styles.text}>{index + 1}.</Text>
               <IntervalBox
+                intervalNum={index + 1}
                 hours={item.hours()}
                 minutes={item.minutes()}
                 seconds={item.seconds()}
@@ -308,7 +307,6 @@ export default ({ route, navigation }: MenuProps) => {
                   changeInterval(index, newInterval);
                 }}
               />
-            </View>
           );
         }}
       />
@@ -338,7 +336,7 @@ export default ({ route, navigation }: MenuProps) => {
         <Dropdown
           style={[
             Styles.dropdown,
-            Styles.alertDropdown,
+            {flex: 2},
             !sharedAlert ? Styles.dropdownDisabled : null,
           ]}
           placeholderStyle={!sharedAlert ? [Styles.dropdownTextDisabled, Styles.text] : Styles.text}

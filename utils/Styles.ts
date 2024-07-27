@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 12,
+    paddingVertical: '6%',
     gap: 10,
   },
   controlGroup: {
@@ -14,37 +14,37 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    paddingHorizontal: 12,
+    paddingHorizontal: '6%',
     gap: 12,
   },
   spaced: {
     justifyContent: "space-between",
   },
   intervalList: {
-    width: "100%",
+    width: "80%",
   },
   separator: {
     height: 24
   },
   intervalBoxContainer: {
-    flex: 0,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
   },
   intervalBox: {
-    flex: 0,
+    flex: 3,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 2,
-    padding: 5,
+    padding: '2%',
     borderRadius: 3,
     backgroundColor: "#00000005",
   },
   intervalBoxComponent: {
-    flex: 0,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -52,9 +52,9 @@ export default StyleSheet.create({
   },
   intervalBoxNumber: {
     backgroundColor: "#ffffff",
-    width: 42,
     textAlign: "center",
     borderRadius: 5,
+    width: '100%',
   },
   intervalEditorBoxContainer: {
     flex: 0,
@@ -108,14 +108,11 @@ export default StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
   },
-  alertDropdown: {
-    width: 140
-  },
   presetDropdown: {
-    width: 160
+    width: '50%'
   },
   modalityDropdown: {
-    width: 95
+    width: '30%'
   },
   dropdownDisabled: {
     backgroundColor: "#bbbbbb",
@@ -124,11 +121,8 @@ export default StyleSheet.create({
   dropdownTextDisabled: {
     color: "#969696",
   },
-  picker: {
-    width: 70
-  },
   checkBoxContainer: {
-    flex: 0,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -163,6 +157,6 @@ export default StyleSheet.create({
     fontFamily: "Barlow-Regular",
     fontSize: 18,
     paddingTop: -2,
-    paddingBottom: 2
+    paddingBottom: 2,
   }
 });

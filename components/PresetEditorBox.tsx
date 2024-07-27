@@ -23,9 +23,9 @@ export default (props: {
             style={Styles.presetItem}
             key={props.preset.presetValues.indexOf(value)}
           >
-            <Text style={Styles.text}>{value.name}</Text>
+            <Text style={[Styles.text, {flex: 3}]}>{value.name}</Text>
             <WheelPicker
-              containerStyle={Styles.picker}
+              containerStyle={{flex: 2}}
               selectedIndex={numbers.indexOf(value.numUnits)}
               options={items}
               onChange={(index) => {
@@ -36,7 +36,7 @@ export default (props: {
             />
             {value.alert && (
               <Dropdown
-                style={[Styles.dropdown, Styles.alertDropdown]}
+                style={[Styles.dropdown, {flex: 3}]}
                 value={value.alert}
                 onChange={(item: any) => {
                   value.alert = item.value;
@@ -49,10 +49,11 @@ export default (props: {
                 valueField="value"
                 maxHeight={350}
                 placeholderStyle={Styles.text}
+                selectedTextProps={{numberOfLines: 1}}
                 renderItem={item => {
                   return (
                       <View style={{padding: 10}}>
-                        <Text style={Styles.text}>{item.label}</Text>
+                        <Text style={Styles.text} numberOfLines={1}>{item.label}</Text>
                       </View>
                   )
                 }}

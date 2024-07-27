@@ -94,18 +94,19 @@ export default class {
 	 * interval.
 	 */
   previous() {
-    if (this.state === State.OVER ||
-      (!this.repeat && this.index == this.intervals.length - 1)) return;
-    if (this.repeat && this.index == 0) {
+    if (!this.repeat && this.index == 0) {
+      return;
+    }
+    else if (this.repeat && this.index == 0) {
       this.index = this.intervals.length - 1;
     }
-    else {
+    else if (this.state !== State.OVER) {
       this.index--;
     }
     this.startTime = Date.now();
     this.stopTime = 0;
     this.stopDuration = 0;
-    if (this.state === State.STOPPED) {
+    if (this.state === State.STOPPED || this.state === State.OVER) {
       this.start();
     }
   }
@@ -189,6 +190,7 @@ export default class {
    * @returns Proportion of time passed in the current interval (0.0 - 1.0)
    */
   progress() {
+    if (this.state === State.OVER) return 1.0;
     return this.timePassed() / this.duration();
   }
   
@@ -202,9 +204,12 @@ export default class {
         this.alert.play();
       else
         this.intervals[this.index].alert.play();
-      this.index++;
-      if (!this.repeat && this.index >= this.intervals.length) this.end();
-      else if (this.index >= this.intervals.length) this.index = 0;
+      if (!this.repeat && this.index >= this.intervals.length - 1)
+        this.end();
+      else if (this.index >= this.intervals.length)
+        this.index = 0;
+      else
+        this.index++;
       this.startTime = Date.now();
       this.stopTime = 0;
       this.stopDuration = 0;

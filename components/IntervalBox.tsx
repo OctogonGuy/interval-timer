@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 
 export default (props: {
+  intervalNum: number;
   hours?: number;
   minutes?: number;
   seconds?: number;
@@ -17,6 +18,7 @@ export default (props: {
 }) => {
   return (
     <View style={Styles.intervalBoxContainer}>
+      <Text style={Styles.text}>{props.intervalNum}.</Text>
       <TouchableOpacity style={Styles.intervalBox} onPress={props.onPress}>
         <View style={Styles.intervalBoxComponent}>
           <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.hours}</Text>
@@ -32,7 +34,7 @@ export default (props: {
       </TouchableOpacity>
       {props.showAlert && (
         <Dropdown
-          style={[Styles.dropdown, Styles.alertDropdown]}
+          style={[Styles.dropdown, {flex: 2}]}
           value={props.alert}
           onChange={props.changeIntervalAlert}
           placeholder={props.alert?.name}
@@ -43,10 +45,11 @@ export default (props: {
           valueField="value"
           maxHeight={450}
           placeholderStyle={Styles.text}
+          selectedTextProps={{numberOfLines:1}}
           renderItem={item => {
             return (
                 <View style={{padding: 10}}>
-                  <Text style={Styles.text}>{item.label}</Text>
+                  <Text style={Styles.text} numberOfLines={1}>{item.label}</Text>
                 </View>
             )
           }}
