@@ -32,10 +32,10 @@ export default ({ route, navigation }: TimerProps) => {
   const [intervalTimer, setIntervalTimer] = useState<IntervalTimer>();
   // --- GUI ---
   const [modality, setModality] = useState("");
-  const [color, setColor] = useState("");
-  const [lightColor, setLightColor] = useState("");
-  const [darkColor, setDarkColor] = useState("");
-  const [fontColor, setFontColor] = useState("");
+  const [color, setColor] = useState("#800000");
+  const [lightColor, setLightColor] = useState("#ffdbdb");
+  const [darkColor, setDarkColor] = useState("#660000");
+  const [fontColor, setFontColor] = useState("#ffffff");
   // --- Timer info ---
   const [intervalIndex, setIntervalIndex] = useState(0);
   const [numIntervals, setNumIntervals] = useState(0);

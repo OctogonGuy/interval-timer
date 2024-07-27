@@ -70,7 +70,7 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "80%",
+    width: "90%",
     borderRadius: 5,
     alignSelf: "center",
     marginVertical: "auto",

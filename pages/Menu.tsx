@@ -54,10 +54,10 @@ export default ({ route, navigation }: MenuProps) => {
   const [repeat, setRepeat] = useState<boolean>(false);
   const [sharedAlert, setSharedAlert] = useState<boolean>(false);
   // --- GUI ---
-  const [color, setColor] = useState("");
-  const [lightColor, setLightColor] = useState("");
-  const [darkColor, setDarkColor] = useState("");
-  const [fontColor, setFontColor] = useState("");
+  const [color, setColor] = useState("#800000");
+  const [lightColor, setLightColor] = useState("#ffdbdb");
+  const [darkColor, setDarkColor] = useState("#660000");
+  const [fontColor, setFontColor] = useState("#ffffff");
 
   // Get data from storage upon first load
   useEffect(() => {
@@ -71,6 +71,9 @@ export default ({ route, navigation }: MenuProps) => {
     async function loadColor() {
       const color = await getColor();
       setColor(color);
+      setLightColor(lightenColor(color));
+      setDarkColor(darkenColor(color));
+      setFontColor(textColor(color));
     }
     loadColor();
     navigation.addListener('focus', () => {
