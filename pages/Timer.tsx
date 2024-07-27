@@ -141,44 +141,50 @@ export default ({ route, navigation }: TimerProps) => {
       </Modal>
 
       <View>
-        <View style={[Styles.controlGroup, Styles.spaced]}>
-          <Button
-            text="Color"
-            color={color}
-            lightColor={lightColor}
-            darkColor={darkColor}
-            textColor={fontColor}
-            pressableProps={{onPress: () => setShowColorPickerModal(true)}}
-          />
-          <IntervalDisplay
-            intervalIndex={intervalIndex}
-            numIntervals={numIntervals}
-          />
-          <Dropdown /* Modality select */
-            style={[Styles.dropdown, Styles.modalityDropdown]}
-            data={[Modality.ANALOG, Modality.DIGITAL, Modality.BOTH].map(
-              function (modality: string) {
-                return { label: modality, value: modality };
-              }
-            )}
-            labelField="label"
-            valueField="value"
-            value={modality}
-            placeholder={modality}
-            onChange={(item) => {
-              setModality(item.value);
-              storeModality(item.value);
-            }}
-            selectedTextStyle={Styles.text}
-            placeholderStyle={Styles.text}
-            renderItem={item => {
-              return (
-                  <View style={{padding: 10}}>
-                    <Text style={Styles.text}>{item.label}</Text>
-                  </View>
-              )
-            }}
-          />
+        <View style={[Styles.controlGroup]}>
+          <View style={{flex: 1, alignItems: 'flex-start'}}>
+            <Button
+              text="Color"
+              color={color}
+              lightColor={lightColor}
+              darkColor={darkColor}
+              textColor={fontColor}
+              pressableProps={{onPress: () => setShowColorPickerModal(true)}}
+            />
+          </View>
+          <View style={{flex: 1}}>
+            <IntervalDisplay
+              intervalIndex={intervalIndex}
+              numIntervals={numIntervals}
+            />
+          </View>
+          <View style={{flex: 1}}>
+            <Dropdown /* Modality select */
+              style={[Styles.dropdown, Styles.modalityDropdown, {width: '100%'}]}
+              data={[Modality.ANALOG, Modality.DIGITAL, Modality.BOTH].map(
+                function (modality: string) {
+                  return { label: modality, value: modality };
+                }
+              )}
+              labelField="label"
+              valueField="value"
+              value={modality}
+              placeholder={modality}
+              onChange={(item) => {
+                setModality(item.value);
+                storeModality(item.value);
+              }}
+              selectedTextStyle={Styles.text}
+              placeholderStyle={Styles.text}
+              renderItem={item => {
+                return (
+                    <View style={{padding: 10}}>
+                      <Text style={Styles.text}>{item.label}</Text>
+                    </View>
+                )
+              }}
+            />
+          </View>
         </View>
       </View>
 

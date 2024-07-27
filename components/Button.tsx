@@ -5,7 +5,7 @@ export const Button = (props: {pressableProps: PressableProps,
     return (
         <View style={{
             borderColor: props.pressableProps.disabled ? "#808080" : props.darkColor,
-            borderWidth: 1,
+            borderWidth: 1
         }}>
             <Pressable {...props.pressableProps} style={({pressed}) => [
                 {

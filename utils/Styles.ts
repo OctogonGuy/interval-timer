@@ -130,8 +130,8 @@ export default StyleSheet.create({
     gap: 5,
   },
   analogDisplay: {
-    width: "75%",
-    height: "75%",
+    height: "60%",
+    aspectRatio: 1,
   },
   colorPicker: {
     flex: 1,
