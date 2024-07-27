@@ -119,7 +119,7 @@ export const getColor = async() => {
   if (color)
     return color;
   else
-    return "lightcoral";
+    return "maroon";
 }
 
 export const storeModality = async(modality: string) => {

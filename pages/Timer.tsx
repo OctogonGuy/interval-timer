@@ -65,6 +65,9 @@ export default ({ route, navigation }: TimerProps) => {
     async function loadColor() {
       const color = await getColor();
       setColor(color);
+      setLightColor(lightenColor(color));
+      setDarkColor(darkenColor(color));
+      setFontColor(textColor(color));
     }
     loadColor();
     async function loadModality() {
