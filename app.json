@@ -2,7 +2,7 @@
   "expo": {
     "name": "ReactNativeIntervalTimer",
     "slug": "ReactNativeIntervalTimer",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,14 +13,17 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.octogonguy.ReactNativeIntervalTimer"
+      "bundleIdentifier": "com.octogonguy.ReactNativeIntervalTimer",
+      "buildNumber": "1.0.1"
     },
     "android": {
+      "blockedPermissions": ["android.permission.RECORD_AUDIO"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.octogonguy.ReactNativeIntervalTimer"
+      "package": "com.octogonguy.ReactNativeIntervalTimer",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
