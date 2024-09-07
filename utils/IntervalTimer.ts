@@ -206,7 +206,7 @@ export default class {
         this.intervals[this.index].alert.play();
       if (!this.repeat && this.index >= this.intervals.length - 1)
         this.end();
-      else if (this.index >= this.intervals.length)
+      else if (this.index == this.intervals.length - 1)
         this.index = 0;
       else
         this.index++;

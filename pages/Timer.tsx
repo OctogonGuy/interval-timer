@@ -22,6 +22,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import Modality from "../constants/Modality";
 import {lightenColor, darkenColor, textColor} from "../utils/Utils";
 import {Button} from "../components/Button";
+import {useKeepAwake} from "expo-keep-awake";
 
 export default ({ route, navigation }: TimerProps) => {
   // --- Modal ---
@@ -76,6 +77,9 @@ export default ({ route, navigation }: TimerProps) => {
     }
     loadModality();
   }, [route]);
+
+  // Keep screen awake
+  useKeepAwake();
 
   useEffect(() => {
     if (!intervalTimer) return;
