@@ -21,15 +21,15 @@ export default (props: {
       <Text style={Styles.text}>{props.intervalNum}.</Text>
       <TouchableOpacity style={Styles.intervalBox} onPress={props.onPress}>
         <View style={Styles.intervalBoxComponent}>
-          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.hours}</Text>
+          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.hours?.toString().padStart(2, '0')}</Text>
         </View>
         <Text style={Styles.text}>:</Text>
         <View style={Styles.intervalBoxComponent}>
-          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.minutes}</Text>
+          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.minutes?.toString().padStart(2, '0')}</Text>
         </View>
         <Text style={Styles.text}>:</Text>
         <View style={Styles.intervalBoxComponent}>
-          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.seconds}</Text>
+          <Text style={[Styles.intervalBoxNumber, Styles.text]}>{props.seconds?.toString().padStart(2, '0')}</Text>
         </View>
       </TouchableOpacity>
       {props.showAlert && (

@@ -24,7 +24,7 @@ export default (props: {
     <View style={Styles.intervalEditorBoxContainer}>
       <View style={Styles.intervalBoxComponent}>
         <WheelPicker
-          containerStyle={Styles.picker}
+          //containerStyle={Styles.picker}
           selectedIndex={numbers.indexOf(hours)}
           options={items}
           onChange={(index) => setHours(parseInt(items[index]))}
@@ -36,7 +36,7 @@ export default (props: {
 
       <View style={Styles.intervalBoxComponent}>
         <WheelPicker
-          containerStyle={Styles.picker}
+          //containerStyle={Styles.picker}
           selectedIndex={numbers.indexOf(minutes)}
           options={items}
           onChange={(index) => setMinutes(parseInt(items[index]))}
@@ -48,7 +48,7 @@ export default (props: {
 
       <View style={Styles.intervalBoxComponent}>
         <WheelPicker
-          containerStyle={Styles.picker}
+          //containerStyle={Styles.picker}
           selectedIndex={numbers.indexOf(seconds)}
           options={items}
           onChange={(index) => setSeconds(parseInt(items[index]))}
