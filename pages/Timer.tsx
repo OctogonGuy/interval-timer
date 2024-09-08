@@ -135,56 +135,9 @@ export default ({ route, navigation }: TimerProps) => {
 
   return (
     <View style={[Styles.container, {backgroundColor: lightColor}]}>
-      <Modal
-        visible={showColorPickerModal}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={[Styles.colorPickerContainer, Styles.modal]}>
-          <View style={Styles.colorPicker}>
-              <ColorPicker style={{ width: '90%' }} value={color} onComplete={({hex}) => setTempColor(hex)}>
-                  <Preview />
-                  <HueCircular containerStyle={Styles.hueContainer} thumbShape='pill'>
-                    <Panel1 style={Styles.panelStyle} />
-                  </HueCircular>
-              </ColorPicker>
-          </View>
-          <View style={Styles.controlGroup}>
-            <Button
-              text="Ok"
-              color={color}
-              lightColor={lightColor}
-              darkColor={darkColor}
-              textColor={fontColor}
-              pressableProps={{onPress: () => {
-                setColor(tempColor);
-                storeColor(tempColor);
-                setShowColorPickerModal(false);
-              }}}
-            />
-            <Button
-              text="Cancel"
-              color={color}
-              lightColor={lightColor}
-              darkColor={darkColor}
-              textColor={fontColor}
-              pressableProps={{onPress: () => setShowColorPickerModal(false)}}
-            />
-          </View>
-        </View>
-      </Modal>
-
       <View>
         <View style={[Styles.controlGroup]}>
           <View style={{flex: 1, alignItems: 'flex-start'}}>
-            <Button
-              text="Color"
-              color={color}
-              lightColor={lightColor}
-              darkColor={darkColor}
-              textColor={fontColor}
-              pressableProps={{onPress: () => setShowColorPickerModal(true)}}
-            />
           </View>
           <View style={{flex: 1}}>
             <IntervalDisplay
