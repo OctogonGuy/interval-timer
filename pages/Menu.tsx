@@ -179,7 +179,7 @@ export default ({ route, navigation }: MenuProps) => {
         visible={intervalModalVisible}
         onRequestClose={() => setIntervalModalVisible(false)}
       >
-        <View style={[Styles.intervalEditorBoxModal, , Styles.modal]}>
+        <View style={[Styles.intervalEditorBoxModal, Styles.modal]}>
           <IntervalEditorBox
             interval={modalInterval}
             changeInterval={(

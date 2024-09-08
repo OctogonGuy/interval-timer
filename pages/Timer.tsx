@@ -200,7 +200,10 @@ export default ({ route, navigation }: TimerProps) => {
             lightColor={lightColor}
             darkColor={darkColor}
             textColor={fontColor}
-            pressableProps={{onPress: () => intervalTimer?.toggle()}}
+            pressableProps={{onPress: () => {
+              intervalTimer?.toggle();
+              setTimerState(intervalTimer?.state??"");
+            }}}
           />
           <Button
             text="Next"
