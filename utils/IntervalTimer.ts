@@ -54,6 +54,7 @@ export default class {
    * Freezes the timer (for when timer screen is exited)
    */
   freeze() {
+    if (this.state === State.STOPPED) return;
 		this.stop();
     this.state = State.FROZEN;
   }
@@ -62,10 +63,27 @@ export default class {
    * Unfreezes the timer (for when timer screen is resumed)
    */
   unfreeze() {
-		if (this.state === State.STOPPED) {
+    if (this.state === State.STOPPED) {
       this.stopDuration += Date.now() - this.stopTime;
       this.stopTime = Date.now();
       return;
+    }
+    else if (this.state === State.FROZEN) {
+      this.stopDuration = 0;
+      this.stopTime = 0;
+      // Progress through intervals that were missed
+      while (this.timePassed() >= this.intervals[this.index].duration) {
+        this.startTime += this.intervals[this.index].duration;
+        if (!this.repeat && this.index >= this.intervals.length - 1) {
+          this.end();
+          break;
+        }
+        else if (this.index == this.intervals.length - 1)
+          this.index = 0;
+        else
+          this.index++;
+      }
+      this.startTime = Date.now() - this.timePassed();
     }
     this.start();
   }
@@ -112,7 +130,7 @@ export default class {
   }
 
   /**
-	 * Skips to the next interval. Does nothing if repeat is off and it has
+	 * Skips to the next interval. Does nothing if repeat is off, and it has
 	 * finished the last interval. If repeat is on, loop back to first interval.
 	 */
   next() {
@@ -129,7 +147,7 @@ export default class {
   }
 
   /**
-	 * Restarts the from the first interval
+	 * Restarts from the first interval
 	 */
   restartTimer() {
     this.index = 0;

@@ -1,9 +1,9 @@
-import { View, Text, Modal } from "react-native";
+import { View, Text, Modal, AppStateStatus } from "react-native";
 import { TimerProps } from "../utils/Navigation";
 import IntervalDisplay from "../components/IntervalDisplay";
 import DigitalTimerDisplay from "../components/DigitalTimerDisplay";
 import AnalogTimerDisplay from "../components/AnalogTimerDisplay";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Audio } from "expo-av";
 import IntervalTimer from "../utils/IntervalTimer";
 import Alert from "../constants/Alert";
@@ -16,13 +16,14 @@ import {
   storeModality,
 } from "../utils/AppStorage";
 import State from "../constants/State";
-import ColorPicker from "react-native-wheel-color-picker";
 import Styles from "../utils/Styles";
 import { Dropdown } from "react-native-element-dropdown";
 import Modality from "../constants/Modality";
 import {lightenColor, darkenColor, textColor} from "../utils/Utils";
 import {Button} from "../components/Button";
 import {useKeepAwake} from "expo-keep-awake";
+import ColorPicker, { Panel1, HueCircular, Preview } from 'reanimated-color-picker';
+import {AppState} from 'react-native';
 
 export default ({ route, navigation }: TimerProps) => {
   // --- Modal ---
@@ -43,6 +44,31 @@ export default ({ route, navigation }: TimerProps) => {
   const [timeLeftStr, setTimeLeftStr] = useState("");
   const [progress, setProgress] = useState(0.0);
   const [timerState, setTimerState] = useState("");
+  // --- App state ---
+  const appState: React.MutableRefObject<AppStateStatus> = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
+  // App state (active, background, inactive)
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+      if (appStateVisible === 'inactive' || appStateVisible === 'background') {
+        intervalTimer?.freeze();
+      }
+      else {
+        intervalTimer?.unfreeze();
+      }
+  }, [appStateVisible]);
 
   useEffect(() => {
     async function loadIntervalTimer() {
@@ -116,11 +142,12 @@ export default ({ route, navigation }: TimerProps) => {
       >
         <View style={[Styles.colorPickerContainer, Styles.modal]}>
           <View style={Styles.colorPicker}>
-            <ColorPicker
-              color={color}
-              onColorChangeComplete={setTempColor}
-              swatches={false}
-            />
+              <ColorPicker style={{ width: '90%' }} value={color} onComplete={({hex}) => setTempColor(hex)}>
+                  <Preview />
+                  <HueCircular containerStyle={Styles.hueContainer} thumbShape='pill'>
+                    <Panel1 style={Styles.panelStyle} />
+                  </HueCircular>
+              </ColorPicker>
           </View>
           <View style={Styles.controlGroup}>
             <Button

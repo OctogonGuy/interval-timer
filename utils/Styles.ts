@@ -133,10 +133,6 @@ export default StyleSheet.create({
     height: "60%",
     aspectRatio: 1,
   },
-  colorPicker: {
-    flex: 1,
-    width: "100%",
-  },
   colorPickerContainer: {
     flex: 0,
     alignItems: "center",
@@ -162,5 +158,23 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 23,
-  }
+  },
+  colorPicker: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  preview: {
+    marginBottom: 10,
+  },
+  hueContainer: {
+    justifyContent: 'center',
+  },
+  panelStyle: {
+    width: '70%',
+    height: '70%',
+    alignSelf: 'center',
+    borderRadius: 16,
+  },
 });

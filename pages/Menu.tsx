@@ -32,9 +32,9 @@ import PresetEditorBox from "../components/PresetEditorBox";
 import Preset from "../constants/Preset";
 import CheckBox from "../components/CheckBox";
 import IntervalTimer from "../utils/IntervalTimer";
-import ColorPicker from "react-native-wheel-color-picker";
 import {lightenColor, darkenColor, textColor} from "../utils/Utils";
 import {Button} from "../components/Button";
+import ColorPicker, { Panel1, HueCircular, Preview } from 'reanimated-color-picker';
 
 export default ({ route, navigation }: MenuProps) => {
   // --- Modal ---
@@ -70,10 +70,12 @@ export default ({ route, navigation }: MenuProps) => {
     load();
     async function loadColor() {
       const color = await getColor();
-      setColor(color);
-      setLightColor(lightenColor(color));
-      setDarkColor(darkenColor(color));
-      setFontColor(textColor(color));
+      if (color) {
+          setColor(color);
+          setLightColor(lightenColor(color));
+          setDarkColor(darkenColor(color));
+          setFontColor(textColor(color));
+      }
     }
     loadColor();
     navigation.addListener('focus', () => {
@@ -140,11 +142,12 @@ export default ({ route, navigation }: MenuProps) => {
       >
         <View style={[Styles.colorPickerContainer, Styles.modal]}>
           <View style={Styles.colorPicker}>
-            <ColorPicker
-              color={color}
-              onColorChangeComplete={setTempColor}
-              swatches={false}
-            />
+              <ColorPicker style={{ width: '90%' }} value={color} onComplete={({hex}) => setTempColor(hex)}>
+                  <Preview style={Styles.preview}/>
+                  <HueCircular containerStyle={Styles.hueContainer} thumbShape='pill'>
+                    <Panel1 style={Styles.panelStyle} />
+                  </HueCircular>
+              </ColorPicker>
           </View>
           <View style={Styles.controlGroup}>
             <Button
