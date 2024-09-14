@@ -340,6 +340,15 @@ export default ({ route, navigation }: MenuProps) => {
       </View>
 
       <View style={Styles.controlGroup}>
+        <CheckBox
+          value={sharedAlert}
+          color={color}
+          onValueChange={(value) => {
+            setSharedAlert(value);
+            storeSharedAlert(value);
+          }}
+          text="Shared Alert"
+        />
         <Dropdown
           style={[
             Styles.dropdown,
@@ -368,15 +377,9 @@ export default ({ route, navigation }: MenuProps) => {
               )
             }}
         />
-        <CheckBox
-          value={sharedAlert}
-          color={color}
-          onValueChange={(value) => {
-            setSharedAlert(value);
-            storeSharedAlert(value);
-          }}
-          text="Shared"
-        />
+      </View>
+
+      <View style={Styles.controlGroup}>
         <CheckBox
           value={repeat}
           color={color}

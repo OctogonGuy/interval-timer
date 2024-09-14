@@ -145,7 +145,8 @@ export default ({ route, navigation }: TimerProps) => {
               numIntervals={numIntervals}
             />
           </View>
-          <View style={{flex: 1}}>
+          <View style={{flex: 1, alignItems: "center", gap: 5}}>
+            <Text>Modality</Text>
             <Dropdown /* Modality select */
               style={[Styles.dropdown, Styles.modalityDropdown, {width: '100%'}]}
               data={[Modality.ANALOG, Modality.DIGITAL, Modality.BOTH].map(
