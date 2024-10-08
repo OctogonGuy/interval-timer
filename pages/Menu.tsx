@@ -41,6 +41,7 @@ export default ({ route, navigation }: MenuProps) => {
   const [intervalModalVisible, setIntervalModalVisible] = useState(false);
   const [presetModalVisible, setPresetModalVisible] = useState(false);
   const [showColorPickerModal, setShowColorPickerModal] = useState(false);
+  const [showCreditsModal, setShowCreditsModal] = useState(false);
   const [tempColor, setTempColor] = useState("");
   // --- Interval info ---
   const [intervals, setIntervals] = useState(new Array<Interval>());
@@ -174,6 +175,23 @@ export default ({ route, navigation }: MenuProps) => {
         </View>
       </Modal>
 
+        <Modal
+        visible={showCreditsModal}
+        transparent={true}
+        animationType="slide">
+        <View style={[Styles.modal, Styles.creditsModal]}>
+            <Text>Thanks to Bria Bates for creating the app icon</Text>
+            <Button
+              text="Close"
+              color={color}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+              pressableProps={{onPress: () => setShowCreditsModal(false)}}
+            />
+        </View>
+        </Modal>
+
       <Modal
         transparent={true}
         visible={intervalModalVisible}
@@ -262,6 +280,14 @@ export default ({ route, navigation }: MenuProps) => {
           darkColor={darkColor}
           textColor={fontColor}
           pressableProps={{onPress: () => setShowColorPickerModal(true)}}
+        />
+        <Button
+          text="Credits"
+          color={color}
+          lightColor={lightColor}
+          darkColor={darkColor}
+          textColor={fontColor}
+          pressableProps={{onPress: () => setShowCreditsModal(true)}}
         />
         <Dropdown /* Preset select */
           style={[Styles.dropdown, Styles.presetDropdown]}

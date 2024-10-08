@@ -2,7 +2,7 @@
   "expo": {
     "name": "ReactNativeIntervalTimer",
     "slug": "ReactNativeIntervalTimer",
-    "version": "1.0.6",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,7 +14,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.octogonguy.ReactNativeIntervalTimer",
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.0.5"
     },
     "android": {
       "blockedPermissions": ["android.permission.RECORD_AUDIO"],

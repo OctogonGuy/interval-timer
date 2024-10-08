@@ -83,6 +83,18 @@ export default StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
   },
+  creditsModal: {
+    flex: 0,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "90%",
+    borderRadius: 5,
+    alignSelf: "center",
+    marginVertical: "auto",
+    gap: 15,
+    padding: 15
+  },
   presetItem: {
     flex: 0,
     flexDirection: "row",
