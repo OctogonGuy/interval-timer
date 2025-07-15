@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import tech.octopusdragon.intervaltimer.application.controls.IntervalSpinner?>
+<?import tech.octopusdragon.intervaltimer.application.controls.AlertComboBox?>
+
+<fx:root styleClass="interval-editor-box" alignment="CENTER" stylesheets="@../styles.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <IntervalSpinner fx:id="hourSpinner" />
+      <Label styleClass="unit-label" text="h" />
+      <Label styleClass="colon" text=":" />
+      <IntervalSpinner fx:id="minuteSpinner" />
+      <Label styleClass="unit-label" text="m" />
+      <Label styleClass="colon" text=":" />
+      <IntervalSpinner fx:id="secondSpinner" />
+      <Label styleClass="unit-label" text="s" />
+      <AlertComboBox fx:id="alertComboBox" />
+   </children>
+</fx:root>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Ellipse?>
+
+<fx:root type="Pane" styleClass="countdown-pie-chart" maxWidth="-Infinity" maxHeight="-Infinity" size="150.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Ellipse fx:id="outline" fill="transparent" radiusX="100.0" radiusY="100.0" strokeType="INSIDE" strokeWidth="5.0" />
+      <Arc fx:id="pieChart" length="360.0" radiusX="90.0" radiusY="90.0" startAngle="90.0" type="ROUND" />
+   </children>
+</fx:root>
