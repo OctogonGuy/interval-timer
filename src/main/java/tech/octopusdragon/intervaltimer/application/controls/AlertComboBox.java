@@ -2,8 +2,6 @@ package tech.octopusdragon.intervaltimer.application.controls;
 
 import java.util.Collection;
 
-import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
-
 import tech.octopusdragon.intervaltimer.Alert;
 
 import javafx.collections.FXCollections;
@@ -11,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.util.Callback;
 
 /**

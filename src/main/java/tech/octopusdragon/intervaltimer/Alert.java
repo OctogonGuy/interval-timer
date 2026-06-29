@@ -34,7 +34,7 @@ public enum Alert {
 	SILENT();
 	
 	// --- Constants ---
-	private final static String ALERT_DIR = "resources/alerts/";
+	private final static String ALERT_DIR = "/alerts/";
 	
 	// --- Variables ---
 	private Sequencer player;		// The Sequencer for the Alert
@@ -69,7 +69,7 @@ public enum Alert {
 			player = MidiSystem.getSequencer();
 			player.addMetaEventListener(new EndOfSequenceListener());
 			player.open();
-			player.setSequence(getClass().getClassLoader().getResourceAsStream(
+			player.setSequence(Alert.class.getResourceAsStream(
 					filename));
 			player.start();
 			

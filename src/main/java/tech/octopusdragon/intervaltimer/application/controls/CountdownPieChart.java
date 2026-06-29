@@ -65,7 +65,7 @@ public class CountdownPieChart extends Pane {
 			outline.setStroke(newVal);
 		});
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("CountdownPieChart.fxml"));
+		FXMLLoader loader = new FXMLLoader(CountdownPieChart.class.getResource("CountdownPieChart.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
 		try {

@@ -62,7 +62,7 @@ public class IntervalEditorBox extends HBox {
 	 * Constructor with an interval and whether or not to disable the alert
 	 */
 	public IntervalEditorBox(Interval interval, boolean alertDisabled) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("IntervalEditorBox.fxml"));
+		FXMLLoader loader = new FXMLLoader(IntervalEditorBox.class.getResource("IntervalEditorBox.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
 		try {

@@ -13,7 +13,7 @@ public enum Resource {
 	
 	// --- Global constants ---
 	// The directory to the resources
-	private static final String DIRECTORY = "resources/";
+	private static final String DIRECTORY = "/";
 	
 	// --- Instance variables ---
 	private String path;	// The path to the resource file
@@ -37,13 +37,13 @@ public enum Resource {
 	 * @return The resource as a URL
 	 */
 	public URL getResource() {
-		return Resource.class.getClassLoader().getResource(path);
+		return Resource.class.getResource(path);
 	}
 	
 	/**
 	 * @return The resource as an input stream
 	 */
 	public InputStream getResourceAsStream() {
-		return Resource.class.getClassLoader().getResourceAsStream(path);
+		return Resource.class.getResourceAsStream(path);
 	}
 }

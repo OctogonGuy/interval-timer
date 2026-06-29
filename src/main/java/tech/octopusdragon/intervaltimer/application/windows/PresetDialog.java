@@ -40,7 +40,7 @@ public class PresetDialog extends Dialog<Interval[]> {
 	 * @param preset The preset to show and have the user optionally edit
 	 */
 	public PresetDialog(Preset preset) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("PresetDialogPane.fxml"));
+		FXMLLoader loader = new FXMLLoader(PresetDialog.class.getResource("PresetDialogPane.fxml"));
 		loader.setController(this);
 		try {
 			setDialogPane(loader.load());

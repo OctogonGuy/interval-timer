@@ -33,9 +33,9 @@ public class IntervalTimerApplication extends Application {
 	
 	// FXML file paths
 	public static final String MENU_SCENE_FXML =
-			"scenes/MenuScene.fxml";
+			"/tech/octopusdragon/intervaltimer/application/scenes/MenuScene.fxml";
 	public static final String TIMER_SCENE_FXML =
-			"scenes/TimerScene.fxml";
+			"/tech/octopusdragon/intervaltimer/application/scenes/TimerScene.fxml";
 	
 	// --- Variables ---
 	// GUI components
@@ -141,7 +141,10 @@ public class IntervalTimerApplication extends Application {
 	 * Switches to the last loaded timer scene and starts the timer
 	 */
 	public static void switchToLastTimerScene() {
-		stage.setScene(lastTimerScene);
+		//stage.setScene(lastTimerScene);
+		FXMLLoader loader = switchToScene(TIMER_SCENE_FXML);
+		TimerSceneController controller = loader.getController();
+		controller.setTimer(getTimer());
 		lastTimerScene.getRoot().setStyle("-base: " + Userdata.readProperty("ui-color", Values.DEFAULT_UI_COLOR));
 		if (getTimer().isRunning()) {
 			getTimer().start();
